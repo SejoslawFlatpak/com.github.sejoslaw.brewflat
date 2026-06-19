@@ -18,10 +18,11 @@ jobs:
       - name: "Checkout Repository"
         uses: actions/checkout@v4
 
-      - name: "Install Flatpak and Flatpak Builder"
+      - name: "Setup Flatpak Environment"
         run: |
           sudo apt update
           sudo apt install -y flatpak flatpak-builder xvfb
+          sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
       - name: "Build Flatpak Artifact"
         uses: flatpak/flatpak-github-actions/flatpak-builder@master
