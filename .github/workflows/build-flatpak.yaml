@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Build Flatpak Artifact"
-        uses: flatpak/flatpak-github-actions/flatpak-builder@v1
+        uses: flatpak/flatpak-github-actions/flatpak-builder@master
         with:
           bundle: ${{ github.event.repository.name }}.flatpak
           manifest-path: ${{ github.event.repository.name }}.yaml
