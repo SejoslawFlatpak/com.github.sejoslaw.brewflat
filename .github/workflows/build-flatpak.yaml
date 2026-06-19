@@ -23,7 +23,8 @@ jobs:
           sudo apt update
           sudo apt install -y flatpak flatpak-builder xvfb
           
-          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak install -y flathub org.freedesktop.Sdk//25.08 org.freedesktop.Platform//25.08
 
       - name: "Build Flatpak Artifact"
         uses: flatpak/flatpak-github-actions/flatpak-builder@master
@@ -32,7 +33,6 @@ jobs:
           manifest-path: ${{ github.event.repository.name }}.yaml
           cache: true
           cache-key: ${{ github.event.repository.name }}-flatpak-cache
-          install-deps-from: flathub
           run-tests: false
 
       - name: "Upload Flatpak Bundle"
