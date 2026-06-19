@@ -32,7 +32,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/alacritty/alacritty.git
-        tag: v0.13.2
+        branch: master
 
   - name: brew-setup
     buildsystem: simple

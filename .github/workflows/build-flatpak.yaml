@@ -1,0 +1,33 @@
+name: "Automated Flatpak Build"
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'
+  
+  workflow_dispatch:
+
+jobs:
+  build-flatpak:
+    name: "Build Flatpak"
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: "Checkout Repository"
+        uses: actions/checkout@v4
+
+      - name: "Build Flatpak Artifact"
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v1
+        with:
+          bundle: ${{ github.event.repository.name }}.flatpak
+          manifest-path: ${{ github.event.repository.name }}.yaml
+          cache: true
+          cache-key: ${{ github.event.repository.name }}-flatpak-cache
+
+      - name: "Upload Flatpak Bundle"
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.repository.name }}.flatpak
+          path: ${{ github.event.repository.name }}.flatpak
