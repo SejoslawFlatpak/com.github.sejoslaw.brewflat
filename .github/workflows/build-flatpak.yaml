@@ -40,3 +40,16 @@ jobs:
         with:
           name: ${{ github.event.repository.name }}.flatpak
           path: ${{ github.event.repository.name }}.flatpak
+
+      - name: "Create GitHub Release"
+        uses: ncipollo/release-action@v1
+        with:
+          name: "Flatpak Automated Build (Latest)"
+          tag: "latest"
+          artifacts: "${{ github.event.repository.name }}.flatpak"
+          body: |
+            **Generation date:** ${{ github.event.repository.updated_at }}
+            **Commit:** ${{ github.sha }}
+          allowUpdates: true
+          replacesArtifacts: true
+          makeLatest: true
